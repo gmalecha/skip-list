@@ -1,5 +1,7 @@
 language: haskell
 
+dist: precise
+
 ghc:
  - 8.0
 
