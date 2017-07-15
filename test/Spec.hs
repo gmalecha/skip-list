@@ -7,6 +7,7 @@ import Data.SkipList as SL
 import Test.Tasty
 import Test.Tasty.HUnit
 
+allTests :: TestTree
 allTests = testGroup "SkipList"
   [ testCase "[1..]@2" $ testSkipList 2 [0..100] [1..]
   , testCase "[1..]@3" $ testSkipList 3 [0..100] [1..]
@@ -14,7 +15,7 @@ allTests = testGroup "SkipList"
   , testCase "[1..100]@10" $ testSkipList 10 [0..99] [1..100]
   ]
 
-testSkipList :: (Eq a, Show a) => Int -> [Int] -> [a] -> Assertion
+testSkipList :: Int -> [Int] -> [Int] -> Assertion
 testSkipList quant is lst = do
   forM_ is $ \ i ->
     assertEqual (msg i) (lst !! i) (sl `SL.lookup` i)

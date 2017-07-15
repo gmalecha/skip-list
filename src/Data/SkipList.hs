@@ -11,9 +11,6 @@ where
 
 import Prelude hiding (lookup)
 
-import Debug.Trace (trace)
-import Data.List (intercalate)
-
 -- | A SkipIndex stores "pointers" into the tail of a list for efficient
 -- deep indexing. If you have
 --   SkipIndex ls i
@@ -55,13 +52,20 @@ toSkipIndex quant
 
 -- | Lookup in a @SkipList@.
 lookup :: SkipList a -> Int -> a
-lookup (SkipList q (SkipIndex ls z)) i
-  | i >= q = get q (\ (SkipIndex a _) i -> a !! i) z i
+lookup (SkipList q (SkipIndex ls index)) i
+  | i >= q    = get q q (\ (SkipIndex a _) -> (!!) a) index i
   | otherwise = ls !! i
-  where
-    get :: forall a b. Int -> (b -> Int -> a) -> SkipIndex b -> Int -> a
-    get m k (SkipIndex here next) i
-      | i >= q * m = get (q*m) (get m k) next i
-      | otherwise  = k (here !! idx) rest
-      where idx  = i `div` m
-            rest = i `mod` m
+
+-- | Get an element from a @SkipIndex@.
+get :: Int             -- ^ The step increment in the index
+    -> Int             -- ^ The current step size
+    -> (b -> Int -> a) -- ^ Continuation to call with the result
+    -> SkipIndex b     -- ^ The index to look in
+    -> Int             -- ^ The position to look for
+    -> a
+get q stepSize kont (SkipIndex here next) n
+  | n >= q * stepSize =
+    get q (q*stepSize) (get q stepSize kont) next n
+  | otherwise  = kont (here !! idx) rest
+  where idx  = n `div` stepSize
+        rest = n `mod` stepSize

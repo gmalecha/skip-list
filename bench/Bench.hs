@@ -14,22 +14,23 @@ module Main where
 import           Criterion.Main
 import qualified Data.SkipList  as SL
 
+main :: IO ()
 main = defaultMain
        [ -- Compare SkipList indexing with list indexing.
-         env (pure big) $ \ big -> bgroup "all"
-         [ bench "!!" $ whnf (go id (!!)) big
+         env (pure big) $ \ ls -> bgroup "all"
+         [ bench "!!" $ whnf (go id (!!)) ls
          , bench "SkipList<16>" $
            whnf (go (SL.toSkipList 16) SL.lookup) big ]
        , -- Compare different SkipList quantizations
          -- NOTE: This benchmarks to find a good tradeoff between
          -- memory usage and indexing size.
-         env (pure big) $ \ big -> bgroup "Quantities"
+         env (pure big) $ \ ls -> bgroup "Quantities"
          [ bench ("SkipList<" ++ show i ++ ">") $
-           whnf (go (SL.toSkipList i) SL.lookup) big
+           whnf (go (SL.toSkipList i) SL.lookup) ls
          | i <- [2,4,8,16,32,64] ]
        ]
     where
       big = [0..1000]
 
-      go make get big = big == (get sl <$> big)
-          where sl = make big
+      go make get ls = ls == (get sl <$> ls)
+          where sl = make ls
