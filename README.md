@@ -16,7 +16,7 @@ big == get (make big) <$> big
 
 * For lists (`get = !!` and `make = id`)
 
-```shell
+```
 benchmarking all/!!
 time                 864.6 μs   (858.1 μs .. 873.0 μs)
                      0.999 R²   (0.999 R² .. 1.000 R²)
@@ -26,7 +26,7 @@ std dev              14.76 μs   (11.86 μs .. 21.57 μs)
 
 * For `SkipList` (`get = SL.lookup` and `make = SL.toSkipList 32`)
 
-```shell
+```
 benchmarking Quantities/SkipList<32>
 time                 134.9 μs   (134.0 μs .. 135.7 μs)
                      1.000 R²   (0.999 R² .. 1.000 R²)
