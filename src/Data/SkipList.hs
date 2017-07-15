@@ -3,6 +3,9 @@
 -- which makes deep indexing into the list more efficient (O(log n)).
 -- They achieve this by essentially memoizing the @tail@ function to
 -- create a balanced tree.
+--
+-- NOTE: @SkipList@s are /amortized/ efficient, see the benchmarks for
+-- performance results.
 module Data.SkipList
      ( SkipList
      , toSkipList
@@ -25,7 +28,7 @@ import Prelude hiding (lookup)
 data SkipIndex a =
   SkipIndex ![a] (SkipIndex (SkipIndex a))
 
--- | SkipLists are lists that support (semi-)efficient indexing.
+-- | @SkipList@s are lists that support amortized efficient indexing.
 data SkipList a = SkipList !Int !(SkipIndex a)
 
 instance Functor SkipList where
@@ -35,7 +38,9 @@ instance Foldable SkipList where
   foldMap f (SkipList _ (SkipIndex ls _)) = foldMap f ls
 
 -- | Convert a list to a @SkipList@.
-toSkipList :: Int -> [a] -> SkipList a
+toSkipList :: Int -- ^ The step size in the index.
+           -> [a] -- ^ The list to convert.
+           -> SkipList a
 toSkipList quant = SkipList quant . toSkipIndex quant
 
 -- | Build the infinite tree of skips.

@@ -1,10 +1,9 @@
 # skip-list
 
-This library provides an implementation of pure [skip
-lists](https://en.wikipedia.org/wiki/Skip_list) in Haskell.  Skip
-lists provide a simple index structure over basic lists that gives
-them *amortized* good performance when you do many accesses deep into
-a list.
+Skip lists provide efficient *amortized* indexing deep into lists by
+building an index that, essentially, converts the list into a balance
+binary tree. See [the wikipedia entry on skip
+lists](https://en.wikipedia.org/wiki/Skip_list) for more information.
 
 ## Performance
 
