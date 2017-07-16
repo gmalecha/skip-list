@@ -1,5 +1,7 @@
 # skip-list
 
+[![Build Status](https://travis-ci.org/gmalecha/skip-list.svg?branch=master)](https://travis-ci.org/gmalecha/skip-list)
+
 Skip lists provide efficient *amortized* indexing deep into lists by
 building an index that, essentially, converts the list into a balance
 binary tree. See [the wikipedia entry on skip
