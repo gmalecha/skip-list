@@ -29,7 +29,7 @@ data SkipIndex a =
   SkipIndex ![a] (SkipIndex (SkipIndex a))
 
 -- | @SkipList@s are lists that support amortized efficient indexing.
-data SkipList a = SkipList !Int !(SkipIndex a)
+data SkipList a = SkipList !Int (SkipIndex a)
 
 instance Functor SkipList where
   fmap f (SkipList q (SkipIndex raw _)) = toSkipList q $ f <$> raw
