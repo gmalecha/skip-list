@@ -1,7 +1,7 @@
 name:                skip-list
 version:             0.1.0.0
 synopsis:            An implementation of pure skip lists
-description:         Skip lists provide efficient amortized indexing deep into lists by building an index that, essentially, converts the list into a balance binary tree. See [the wikipedia entry on skip lists](https://en.wikipedia.org/wiki/Skip_list) for more information.
+description:         Skip lists provide efficient amortized indexing deep into lists by building an index that, essentially, converts the list into a balance binary tree. See <https://en.wikipedia.org/wiki/Skip_list the wikipedia entry on skip lists> for more information.
 homepage:            https://github.com/gmalecha/skip-list#readme
 license:             MIT
 license-file:        LICENSE
@@ -11,6 +11,7 @@ copyright:           2017 Gregory Malecha
 category:            Data
 build-type:          Simple
 extra-source-files:  README.md
+                   , CHANGES.md
 cabal-version:       >=1.10
 tested-with:         GHC == 7.10.3, GHC == 8.0.2, GHC == 8.2.1
 

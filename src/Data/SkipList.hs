@@ -26,7 +26,7 @@ import Prelude hiding (lookup)
 -- Note however, that these are not lists, but rather references to
 -- @SkipIndex@s from `i`
 data SkipIndex a =
-  SkipIndex ![a] (SkipIndex (SkipIndex a))
+  SkipIndex ![a] !(SkipIndex (SkipIndex a))
 
 -- | @SkipList@s are lists that support amortized efficient indexing.
 data SkipList a = SkipList !Int !(SkipIndex a)
